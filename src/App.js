@@ -34,18 +34,21 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    const {books, shelves, showSearchPage} = this.state;
     return (
         <div className="app">
-          {this.state.showSearchPage ? (
+          {showSearchPage ? (
               <SearchBooks
                   closeSearch={() => this.setState({showSearchPage: false})}
+                  addToShelf={this.changeShelf}
+                  shelfOptions={shelves}
               />
           ) : (
               <div>
                 <ListBooks
-                    books={this.state.books}
+                    books={books}
                     changeShelf={this.changeShelf}
-                    shelfOptions={this.state.shelves}
+                    shelfOptions={shelves}
                 />
                 <div className={"open-search"}>
                   <button onClick={() => this.setState({showSearchPage: true})}>Add a book</button>

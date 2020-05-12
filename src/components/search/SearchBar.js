@@ -22,7 +22,7 @@ class SearchBar extends React.Component {
                 type={"text"}
                 placeholder={"Search by title or author"}
                 value={query}
-                onChange={(event) => updateQuery(event.target.value)}
+                onChange={(event) => updateQuery(event)}
             />
           </div>
         </div>
