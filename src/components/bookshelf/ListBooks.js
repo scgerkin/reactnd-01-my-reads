@@ -8,6 +8,7 @@ class ListBooks extends React.Component {
     changeShelf: PropTypes.func.isRequired
   }
 
+  // TODO: Refactor to iterate over bookshelves rather than hardcode.
   render() {
     const {books, changeShelf} = this.props;
     return (
@@ -20,6 +21,12 @@ class ListBooks extends React.Component {
                 shelfName={"Currently Reading"}
                 key={"currentlyReading"}
                 books={books.filter(book => book.shelf === "currentlyReading")}
+                changeShelf={changeShelf}
+            />
+            <BookShelf
+                shelfName={"Want to Read"}
+                key={"wantToRead"}
+                books={books.filter(book => book.shelf === "wantToRead")}
                 changeShelf={changeShelf}
             />
             <BookShelf
