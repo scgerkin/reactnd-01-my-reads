@@ -7,7 +7,7 @@ class ListBooks extends React.Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
     changeShelf: PropTypes.func.isRequired,
-    shelfOptions: PropTypes.string.isRequired
+    shelfOptions: PropTypes.array.isRequired
   }
 
   render() {
