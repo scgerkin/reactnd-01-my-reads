@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import BookShelfChanger from "./BookShelfChanger";
 
+// TODO: Handle multiple authors
 class BookItem extends React.Component {
   static propTypes = {
     book: PropTypes.object.isRequired,

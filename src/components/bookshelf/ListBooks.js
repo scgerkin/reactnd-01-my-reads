@@ -8,33 +8,29 @@ class ListBooks extends React.Component {
     changeShelf: PropTypes.func.isRequired
   }
 
-  // TODO: Refactor to iterate over bookshelves rather than hardcode.
+  camelToSentence(str) {
+    const result = str.replace(/([A-Z])/g, " $1");
+    return result.charAt(0).toUpperCase() + result.slice(1);
+  }
+
   render() {
     const {books, changeShelf} = this.props;
+    const shelves = [...new Set(this.props.books.map(book => book.shelf))];
+
     return (
         <div className={"list-books"}>
           <div className={"list-books-title"}>
             <h1>MyReads</h1>
           </div>
           <div className={"list-books-content"}>
-            <BookShelf
-                shelfName={"Currently Reading"}
-                key={"currentlyReading"}
-                books={books.filter(book => book.shelf === "currentlyReading")}
-                changeShelf={changeShelf}
-            />
-            <BookShelf
-                shelfName={"Want to Read"}
-                key={"wantToRead"}
-                books={books.filter(book => book.shelf === "wantToRead")}
-                changeShelf={changeShelf}
-            />
-            <BookShelf
-                shelfName={"Read"}
-                key={"read"}
-                books={books.filter(book=> book.shelf === "read")}
-                changeShelf={changeShelf}
-            />
+            {shelves.map(shelf => (
+                <BookShelf
+                    key={shelf}
+                    shelfName={this.camelToSentence(shelf)}
+                    books={books.filter(book => book.shelf === shelf)}
+                    changeShelf={changeShelf}
+                />
+            ))}
           </div>
         </div>
     )
