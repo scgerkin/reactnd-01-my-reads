@@ -8,7 +8,7 @@ class BooksApp extends React.Component {
   state = {
     books: [],
     shelves: [],
-    showSearchPage: false
+    showSearchPage: true
   }
 
   componentDidMount() {
@@ -37,7 +37,9 @@ class BooksApp extends React.Component {
     return (
         <div className="app">
           {this.state.showSearchPage ? (
-              <SearchBooks/>
+              <SearchBooks
+                  closeSearch={() => this.setState({showSearchPage: false})}
+              />
           ) : (
               <div>
                 <ListBooks

@@ -4,7 +4,7 @@ class SearchResults extends React.Component {
   render() {
     return (
         <div className={"search-books-results"}>
-
+          Search Results
         </div>
     )
   }
