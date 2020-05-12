@@ -4,10 +4,16 @@ import * as BooksAPI from "./utils/BooksAPI";
 import ListBooks from "./components/bookshelf/ListBooks";
 import SearchBooks from "./components/search/SearchBooks";
 
+const shelves = [
+    "currentlyReading",
+    "wantToRead",
+    "read",
+    "none"
+];
+
 class BooksApp extends React.Component {
   state = {
     books: [],
-    shelves: [],
     showSearchPage: false
   }
 
@@ -16,8 +22,6 @@ class BooksApp extends React.Component {
       this.setState(() => ({
         books,
       }));
-      const shelves = [...new Set(this.state.books.map(book => book.shelf))];
-      shelves.push("none");
       this.setState(() => ({
         shelves
       }))
@@ -25,7 +29,6 @@ class BooksApp extends React.Component {
   }
 
   changeShelf = (bookIdToChange, newShelfValue) => {
-    console.log(localStorage.token);
     BooksAPI.update(bookIdToChange, newShelfValue)
         .then(() => {
           this.setState(this.state.books.map(book => {
@@ -38,7 +41,7 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    const {books, shelves, showSearchPage} = this.state;
+    const {books, showSearchPage} = this.state;
     return (
         <div className="app">
           {showSearchPage ? (
