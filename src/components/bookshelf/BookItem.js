@@ -23,7 +23,7 @@ class BookItem extends React.Component {
                   backgroundImage: `url(${book.imageLinks.thumbnail})`
                 }}
             />
-            <BookShelfChanger onChangeShelf={changeShelf}/>
+            <BookShelfChanger onChangeShelf={(newShelf)=> changeShelf(book.id, newShelf)}/>
           </div>
           <div className={"book-title"}>{book.title}</div>
           <div className={"book-authors"}>{book.authors[0]}</div>

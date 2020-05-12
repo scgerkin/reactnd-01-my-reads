@@ -16,8 +16,13 @@ class BooksApp extends React.Component {
     });
   }
 
-  changeShelf(shelf) {
-    console.log("Changed shelf to: " + shelf);
+  changeShelf = (bookIdToChange, newShelfValue) => {
+    this.setState(this.state.books.map(book => {
+      if (book.id === bookIdToChange) {
+        book.shelf = newShelfValue;
+      }
+      return book;
+    }));
   }
 
   render() {
