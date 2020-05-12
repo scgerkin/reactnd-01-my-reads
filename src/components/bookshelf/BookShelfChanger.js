@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {camelToSentence} from "../../utils/CamelToSentence";
 
 class BookShelfChanger extends React.Component {
   static propTypes = {
@@ -21,7 +22,7 @@ class BookShelfChanger extends React.Component {
                 <option
                     key={shelf}
                     value={shelf}
-                >{shelf}</option>
+                >{camelToSentence(shelf)}</option>
             ))}
           </select>
         </div>
