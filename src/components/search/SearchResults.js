@@ -5,7 +5,7 @@ import BookItem from "../bookshelf/BookItem";
 class SearchResults extends React.Component {
   static propTypes = {
     searchResults: PropTypes.array,
-    changeShelf: PropTypes.func.isRequired,
+    addToShelf: PropTypes.func.isRequired,
     shelfOptions: PropTypes.array.isRequired
   }
   render() {

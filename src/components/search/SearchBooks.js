@@ -64,7 +64,7 @@ class SearchBooks extends React.Component {
           />
           <SearchResults
               searchResults={searchResults}
-              changeShelf={addToShelf}
+              addToShelf={addToShelf}
               shelfOptions={shelfOptions}
           />
         </div>
