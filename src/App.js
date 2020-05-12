@@ -3,6 +3,7 @@ import React from 'react'
 import './App.css'
 
 import BookItem from "./components/bookshelf/BookItem";
+import ListBooks from "./components/bookshelf/ListBooks";
 
 class BooksApp extends React.Component {
   state = {
@@ -21,13 +22,14 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <BookItem
-            book={{title: "foo", authors: ["bar"], imageLinks: {thumbnail: "http://placekitten.com/50/50"}}}
-            changeShelf={this.changeShelf}
-        />
+        <ListBooks
+            books={[{title: "foo", authors: ["bar"], imageLinks: {thumbnail: "http://placekitten.com/50/50"}}]}
+            changeShelf={this.changeShelf}/>
       </div>
     )
   }
 }
 
 export default BooksApp
+
+//{{title: "foo", authors: ["bar"], imageLinks: {thumbnail: "http://placekitten.com/50/50"}}
