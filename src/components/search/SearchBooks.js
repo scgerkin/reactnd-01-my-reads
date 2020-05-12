@@ -14,10 +14,12 @@ class SearchBooks extends React.Component {
 
   state = {
     query: "",
+    touched: false,
     searchResults: []
   }
 
   onUpdateQuery = (event) => {
+    this.setState(() => ({touched: true}));
     event.persist();
     this.setState(() => ({
       query: event.target.value
@@ -49,6 +51,7 @@ class SearchBooks extends React.Component {
               searchResults={searchResults}
               addToShelf={addToShelf}
               shelfOptions={shelfOptions}
+              wasTouched={this.state.touched}
           />
         </div>
     )
