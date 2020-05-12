@@ -29,6 +29,7 @@ class ListBooks extends React.Component {
                     shelfName={this.camelToSentence(shelf)}
                     books={books.filter(book => book.shelf === shelf)}
                     changeShelf={changeShelf}
+                    shelfOptions={shelves}
                 />
             ))}
           </div>

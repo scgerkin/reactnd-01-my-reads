@@ -6,10 +6,11 @@ class BookShelf extends React.Component {
   static propTypes = {
     shelfName: PropTypes.string.isRequired,
     books: PropTypes.array.isRequired,
-    changeShelf: PropTypes.func.isRequired
+    changeShelf: PropTypes.func.isRequired,
+    shelfOptions: PropTypes.array.isRequired
   }
   render() {
-    const {shelfName, books, changeShelf} = this.props;
+    const {shelfName, books, changeShelf, shelfOptions} = this.props;
     return (
         <div className={"bookshelf"}>
           <h2 className={"bookshelf-title"}>{shelfName}</h2>
@@ -17,7 +18,11 @@ class BookShelf extends React.Component {
             <ol className={"books-grid"}>
               {books.map(book =>(
                 <li key={book.id}>
-                  <BookItem book={book} changeShelf={changeShelf}/>
+                  <BookItem
+                      book={book}
+                      changeShelf={changeShelf}
+                      shelfOptions={shelfOptions}
+                  />
                 </li>
               ))}
             </ol>
