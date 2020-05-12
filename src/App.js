@@ -2,11 +2,13 @@ import React from 'react'
 import './App.css'
 import * as BooksAPI from "./utils/BooksAPI";
 import ListBooks from "./components/bookshelf/ListBooks";
+import SearchBooks from "./components/search/SearchBooks";
 
 class BooksApp extends React.Component {
   state = {
     books: [],
-    shelves: []
+    shelves: [],
+    showSearchPage: false
   }
 
   componentDidMount() {
@@ -34,11 +36,20 @@ class BooksApp extends React.Component {
   render() {
     return (
         <div className="app">
-          <ListBooks
-              books={this.state.books}
-              changeShelf={this.changeShelf}
-              shelfOptions={this.state.shelves}
-          />
+          {this.state.showSearchPage ? (
+              <SearchBooks/>
+          ) : (
+              <div>
+                <ListBooks
+                    books={this.state.books}
+                    changeShelf={this.changeShelf}
+                    shelfOptions={this.state.shelves}
+                />
+                <div className={"open-search"}>
+                  <button onClick={() => this.setState({showSearchPage: true})}>Add a book</button>
+                </div>
+              </div>
+          )}
         </div>
     )
   }
