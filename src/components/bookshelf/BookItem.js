@@ -5,11 +5,11 @@ import BookShelfChanger from "./BookShelfChanger";
 class BookItem extends React.Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
-    onChangeShelf: PropTypes.func.isRequired
+    changeShelf: PropTypes.func.isRequired
   }
 
   render() {
-    const {book, onChangeShelf} = this.props;
+    const {book, changeShelf} = this.props;
 
     return (
         <div className={"book"}>
@@ -22,7 +22,7 @@ class BookItem extends React.Component {
                   backgroundImage: `url(${book.imageLinks.thumbnail})`
                 }}
             />
-            <BookShelfChanger onChangeShelf={onChangeShelf}/>
+            <BookShelfChanger onChangeShelf={changeShelf}/>
           </div>
           <div className={"book-title"}>{book.title}</div>
           <div className={"book-authors"}>{book.authors[0]}</div>

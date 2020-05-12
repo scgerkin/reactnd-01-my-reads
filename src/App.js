@@ -14,11 +14,17 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false
   }
+  changeShelf(shelf) {
+    console.log("Changed shelf to: " + shelf);
+  }
 
   render() {
     return (
       <div className="app">
-        <BookItem book={{title: "foo", authors: ["bar"], imageLinks: {thumbnail: "http://placekitten.com/50/50"}}}/>
+        <BookItem
+            book={{title: "foo", authors: ["bar"], imageLinks: {thumbnail: "http://placekitten.com/50/50"}}}
+            changeShelf={this.changeShelf}
+        />
       </div>
     )
   }
