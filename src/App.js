@@ -8,7 +8,7 @@ class BooksApp extends React.Component {
   state = {
     books: [],
     shelves: [],
-    showSearchPage: true
+    showSearchPage: false
   }
 
   componentDidMount() {
@@ -25,12 +25,16 @@ class BooksApp extends React.Component {
   }
 
   changeShelf = (bookIdToChange, newShelfValue) => {
-    this.setState(this.state.books.map(book => {
-      if (book.id === bookIdToChange) {
-        book.shelf = newShelfValue;
-      }
-      return book;
-    }));
+    console.log(localStorage.token);
+    BooksAPI.update(bookIdToChange, newShelfValue)
+        .then(() => {
+          this.setState(this.state.books.map(book => {
+            if (book.id === bookIdToChange) {
+              book.shelf = newShelfValue;
+            }
+            return book;
+          }));
+        }).catch(error => console.log(error));
   }
 
   render() {
