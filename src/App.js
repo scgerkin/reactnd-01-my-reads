@@ -5,14 +5,20 @@ import ListBooks from "./components/bookshelf/ListBooks";
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: [],
+    shelves: []
   }
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState(() => ({
-        books
+        books,
       }));
+      const shelves = [...new Set(this.state.books.map(book => book.shelf))];
+      shelves.push("none");
+      this.setState(() => ({
+        shelves
+      }))
     });
   }
 
@@ -30,7 +36,9 @@ class BooksApp extends React.Component {
         <div className="app">
           <ListBooks
               books={this.state.books}
-              changeShelf={this.changeShelf}/>
+              changeShelf={this.changeShelf}
+              shelfOptions={this.state.shelves}
+          />
         </div>
     )
   }

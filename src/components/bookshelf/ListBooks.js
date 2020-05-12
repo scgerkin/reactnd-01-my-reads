@@ -5,7 +5,8 @@ import BookShelf from "./BookShelf";
 class ListBooks extends React.Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
-    changeShelf: PropTypes.func.isRequired
+    changeShelf: PropTypes.func.isRequired,
+    shelfOptions: PropTypes.string.isRequired
   }
 
   camelToSentence(str) {
@@ -14,8 +15,7 @@ class ListBooks extends React.Component {
   }
 
   render() {
-    const {books, changeShelf} = this.props;
-    const shelves = [...new Set(this.props.books.map(book => book.shelf))];
+    const {books, changeShelf, shelfOptions} = this.props;
 
     return (
         <div className={"list-books"}>
@@ -23,13 +23,13 @@ class ListBooks extends React.Component {
             <h1>MyReads</h1>
           </div>
           <div className={"list-books-content"}>
-            {shelves.map(shelf => (
+            {shelfOptions.filter(shelf => shelf !== "none").map(shelf => (
                 <BookShelf
                     key={shelf}
                     shelfName={this.camelToSentence(shelf)}
                     books={books.filter(book => book.shelf === shelf)}
                     changeShelf={changeShelf}
-                    shelfOptions={shelves}
+                    shelfOptions={shelfOptions}
                 />
             ))}
           </div>

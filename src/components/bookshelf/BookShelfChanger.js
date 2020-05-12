@@ -23,7 +23,6 @@ class BookShelfChanger extends React.Component {
                     value={shelf}
                 >{shelf}</option>
             ))}
-            <option value="none">None</option>
           </select>
         </div>
     )
