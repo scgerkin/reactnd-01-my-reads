@@ -26,10 +26,7 @@ class SearchBooks extends React.Component {
       this.debouncedFn = debounce(() => {
         const searchString = event.target.value;
         this.getBooks(searchString).then((results) => {
-          // TODO: handle to results or just 1 result
-          //  The backend is returning an object instead of an empty list
-          //  when no results but still gives a status 200.
-          this.setState(() => ({searchResults: results}))
+          this.setState(() => ({searchResults: results instanceof Array ? results : []}))
         });
       }, 600);
     }
@@ -37,20 +34,6 @@ class SearchBooks extends React.Component {
   }
 
   getBooks = (value) => BooksAPI.search(value);
-
-
-
-  //getBooksThrottled = throttle(this.getBooks, 300);
-
-  // async performSearch(query) {
-  //   console.log(query);
-  //   console.log(localStorage.token);
-  //   await new Promise(r => setTimeout(r, 300))
-  //       .then(() => BooksAPI.search(query)
-  //           .then((results) => {
-  //             this.setState(() => ({results}))
-  //           }));
-  // }
 
   render() {
     const {closeSearch, addToShelf, shelfOptions} = this.props;
