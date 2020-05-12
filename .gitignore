@@ -183,4 +183,7 @@ fabric.properties
 
 .idea/
 
+# Temporary files
+*.tmp
 *.bkup
+*.swp

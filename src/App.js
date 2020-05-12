@@ -2,8 +2,31 @@ import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 
-import BookItem from "./components/bookshelf/BookItem";
 import ListBooks from "./components/bookshelf/ListBooks";
+
+const fooBooks = [
+  {
+    id: 1,
+    title: "foo",
+    authors: ["bar"],
+    imageLinks: {thumbnail: "http://placekitten.com/50/50"},
+    shelf: "currentlyReading"
+  },
+  {
+    id: 2,
+    title: "baz",
+    authors: ["weeble"],
+    imageLinks: {thumbnail: "http://placekitten.com/50/50"},
+    shelf: "currentlyReading"
+  },
+  {
+    id: 3,
+    title: "bum",
+    authors: ["bax"],
+    imageLinks: {thumbnail: "http://placekitten.com/50/50"},
+    shelf: "read"
+  }
+]
 
 class BooksApp extends React.Component {
   state = {
@@ -15,17 +38,18 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false
   }
+
   changeShelf(shelf) {
     console.log("Changed shelf to: " + shelf);
   }
 
   render() {
     return (
-      <div className="app">
-        <ListBooks
-            books={[{title: "foo", authors: ["bar"], imageLinks: {thumbnail: "http://placekitten.com/50/50"}}]}
-            changeShelf={this.changeShelf}/>
-      </div>
+        <div className="app">
+          <ListBooks
+              books={fooBooks}
+              changeShelf={this.changeShelf}/>
+        </div>
     )
   }
 }
