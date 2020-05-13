@@ -187,3 +187,5 @@ fabric.properties
 *.tmp
 *.bkup
 *.swp
+
+build/
