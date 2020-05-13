@@ -28,15 +28,25 @@ class BooksApp extends React.Component {
     });
   }
 
-  changeShelf = (bookIdToChange, newShelfValue) => {
-    BooksAPI.update(bookIdToChange, newShelfValue)
+  //fixme this doesn't update the current list without a browser refresh
+  changeShelf = (bookToChange, newShelfValue) => {
+    BooksAPI.update(bookToChange, newShelfValue)
         .then(() => {
-          this.setState(this.state.books.map(book => {
-            if (book.id === bookIdToChange) {
-              book.shelf = newShelfValue;
-            }
-            return book;
-          }));
+          const originalBook = this.state.books.find(book => book.id === bookToChange.id);
+
+          if (!!originalBook) {
+            this.setState(this.state.books.map(book => {
+              if (book.id === originalBook.id) {
+                book.shelf = newShelfValue;
+              }
+              return book;
+            }));
+          }
+          else {
+            this.setState((currentState) => ({
+              books: currentState.books.push(bookToChange)
+            }));
+          }
         }).catch(error => console.log(error));
   }
 
