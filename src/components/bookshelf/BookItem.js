@@ -10,6 +10,13 @@ class BookItem extends React.Component {
     shelfOptions: PropTypes.array.isRequired
   }
 
+  getShelf(book) {
+    if (!book.shelf) {
+      book.shelf = "none";
+    }
+    return book.shelf;
+  }
+
   render() {
     const {book, changeShelf, shelfOptions} = this.props;
 
@@ -25,13 +32,13 @@ class BookItem extends React.Component {
                 }}
             />
             <BookShelfChanger
-                onChangeShelf={(newShelf)=> changeShelf(book.id, newShelf)}
+                changeShelf={(newShelf)=> changeShelf(book, newShelf)}
                 shelfOptions={shelfOptions}
-                currentShelf={book.shelf}
+                currentShelf={this.getShelf(book)}
             />
           </div>
           <div className={"book-title"}>{book.title}</div>
-          <div className={"book-authors"}>{book.authors[0]}</div>
+          <div className={"book-authors"}>{book.authors && book.authors[0]}</div>
         </div>
     )
   }
