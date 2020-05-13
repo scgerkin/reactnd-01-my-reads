@@ -19,10 +19,7 @@ class SearchBooks extends React.Component {
     searchResults: []
   }
 
-  // FIXME: This is a mess but working. At least pull out some stuff
-  //  into a new function.
   onUpdateQuery = (event) => {
-    const { currentlyTrackedBooks } = this.props;
     this.setState(() => ({touched: true}));
     event.persist();
     this.setState(() => ({
@@ -30,28 +27,37 @@ class SearchBooks extends React.Component {
     }));
     if (!this.debouncedFn) {
       this.debouncedFn = debounce(() => {
-        const searchString = event.target.value;
-        this.getBooks(searchString).then((results) => {
-          if (!(results instanceof Array)) {
-            this.setState(() => ({searchResults: []}))
-          }
-          else {
-            results.map(result => {
-              const trackedBook = currentlyTrackedBooks.filter(book => book.id === result.id);
-              if (trackedBook.length >= 1) {
-                result.shelf = trackedBook[0].shelf;
-              }
-              return result;
-            });
-            this.setState(() => ({searchResults: results}));
-          }
-        });
+        this.performSearch(event);
       }, 600);
     }
     this.debouncedFn();
   }
 
   getBooks = (value) => BooksAPI.search(value);
+
+  performSearch = (event) => {
+    const searchString = event.target.value;
+    this.getBooks(searchString).then((results) => {
+      if (!(results instanceof Array)) {
+        this.setState(() => ({searchResults: []}))
+      }
+      else {
+        results.map(result => {
+          return this.addShelfToResultIfTracked(result);
+        });
+        this.setState(() => ({searchResults: results}));
+      }
+    });
+  }
+
+  addShelfToResultIfTracked = (result) => {
+    const { currentlyTrackedBooks } = this.props;
+    const trackedBook = currentlyTrackedBooks.filter(book => book.id === result.id);
+    if (trackedBook.length >= 1) {
+      result.shelf = trackedBook[0].shelf;
+    }
+    return result;
+  }
 
   render() {
     const {closeSearch, addToShelf, shelfOptions} = this.props;
