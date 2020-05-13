@@ -6,16 +6,30 @@ class BookShelfChanger extends React.Component {
   static propTypes = {
     shelfOptions: PropTypes.array.isRequired,
     currentShelf: PropTypes.string.isRequired,
-    onChangeShelf: PropTypes.func.isRequired
+    changeShelf: PropTypes.func.isRequired
+  }
+
+  state = {
+    currentShelf: ""
+  }
+
+  componentDidMount() {
+    this.setState(() => ({currentShelf: this.props.currentShelf}));
+  }
+
+  onChangeShelf = (shelf) => {
+    this.setState(() => ({currentShelf: shelf}));
+    this.props.changeShelf(shelf);
   }
 
   render() {
-    const {shelfOptions, currentShelf, onChangeShelf} = this.props;
+    const {shelfOptions} = this.props;
+    const {currentShelf} = this.state;
     return (
         <div className={"book-shelf-changer"}>
           <select
               value={currentShelf}
-              onChange={(event) => onChangeShelf(event.target.value)}
+              onChange={(event) => this.onChangeShelf(event.target.value)}
           >
             <option value="move" disabled>Move to...</option>
             {shelfOptions.map(shelf => (

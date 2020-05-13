@@ -32,7 +32,7 @@ class BookItem extends React.Component {
                 }}
             />
             <BookShelfChanger
-                onChangeShelf={(newShelf)=> changeShelf(book, newShelf)}
+                changeShelf={(newShelf)=> changeShelf(book, newShelf)}
                 shelfOptions={shelfOptions}
                 currentShelf={this.getShelf(book)}
             />
