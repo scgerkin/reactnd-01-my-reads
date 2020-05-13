@@ -9,7 +9,8 @@ class SearchBooks extends React.Component {
   static propTypes = {
     closeSearch: PropTypes.func.isRequired,
     addToShelf: PropTypes.func.isRequired,
-    shelfOptions: PropTypes.array.isRequired
+    shelfOptions: PropTypes.array.isRequired,
+    currentlyTrackedBooks: PropTypes.array.isRequired
   }
 
   state = {
@@ -18,7 +19,10 @@ class SearchBooks extends React.Component {
     searchResults: []
   }
 
+  // FIXME: This is a mess but working. At least pull out some stuff
+  //  into a new function.
   onUpdateQuery = (event) => {
+    const { currentlyTrackedBooks } = this.props;
     this.setState(() => ({touched: true}));
     event.persist();
     this.setState(() => ({
@@ -28,7 +32,19 @@ class SearchBooks extends React.Component {
       this.debouncedFn = debounce(() => {
         const searchString = event.target.value;
         this.getBooks(searchString).then((results) => {
-          this.setState(() => ({searchResults: results instanceof Array ? results : []}))
+          if (!(results instanceof Array)) {
+            this.setState(() => ({searchResults: []}))
+          }
+          else {
+            results.map(result => {
+              const trackedBook = currentlyTrackedBooks.filter(book => book.id === result.id);
+              if (trackedBook.length >= 1) {
+                result.shelf = trackedBook[0].shelf;
+              }
+              return result;
+            });
+            this.setState(() => ({searchResults: results}));
+          }
         });
       }, 600);
     }

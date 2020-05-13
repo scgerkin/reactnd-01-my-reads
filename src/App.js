@@ -72,6 +72,7 @@ class BooksApp extends React.Component {
                   closeSearch={() => this.setState({showSearchPage: false})}
                   addToShelf={this.changeShelf}
                   shelfOptions={shelves}
+                  currentlyTrackedBooks={books}
               />
           ) : (
               <div>
