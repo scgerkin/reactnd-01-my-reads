@@ -29,20 +29,10 @@ class BooksApp extends React.Component {
     });
   }
 
-  // FIXME This is a MESS
-  //  Going to need to figure out a better way to handle this.
-  //  This is updating the backend with the new value (fine)
-  //  Then updating the current books array with a new shelf value for the book
-  //  if the book is already in the shelf
-  //  If it's not in the shelf, it updates the bookToChange to newShelfValue
-  //  and concats it to the book array.
-  //  This is way too convoluted.
   changeShelf = (bookToChange, newShelfValue) => {
-    //debugger;
     BooksAPI.update(bookToChange, newShelfValue)
         .then(() => {
           const originalBook = this.state.books.find(book => book.id === bookToChange.id);
-
           if (!!originalBook) {
             this.setState(this.state.books.map(book => {
               if (book.id === originalBook.id) {
@@ -53,13 +43,9 @@ class BooksApp extends React.Component {
           }
           else {
             bookToChange.shelf = newShelfValue;
-            console.log("Book to change");
-            console.log(bookToChange);
             this.setState((currentState) => ({
               books: currentState.books.concat([bookToChange])
             }));
-            console.log("Set state, concat new book, books size:");
-            console.log(this.state.books);
           }
         }).catch(error => console.log(error));
   }
